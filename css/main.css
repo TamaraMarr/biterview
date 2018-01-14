@@ -7,24 +7,30 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column; }
-  body header .navbar {
-    background-color: #f7af34; }
-    body header .navbar .main-header {
+  body header .navigation {
+    background-color: #f7af34;
+    width: 100%; }
+    body header .navigation .header-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between; }
+    body header .navigation .main-header {
       font-family: "Ranga", cursive;
       font-size: 2.3rem;
       color: #212121;
-      margin-left: 25px; }
-    body header .navbar .main-header:hover {
+      margin: 25px 35px; }
+    body header .navigation .main-header:hover {
       text-decoration: none;
       color: #757575; }
-    body header .navbar .header-item {
+    body header .navigation .header-item {
       color: #212121;
       font-family: "Roboto", sans-serif;
       font-size: 1.4rem;
       font-style: italic;
       margin-top: 15px;
-      margin-right: 25px; }
-    body header .navbar .header-item:hover {
+      margin: 25px 35px;
+      align-self: center; }
+    body header .navigation .header-item:hover {
       text-decoration: none;
       color: #757575; }
   body main {

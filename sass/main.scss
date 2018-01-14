@@ -10,14 +10,21 @@ body {
     flex-direction: column;
     
     header {
-        .navbar {
+        .navigation {
             background-color: rgb(247, 175, 52);
+            width: 100%;
             
+            .header-wrapper {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
             .main-header {
                 font-family: $header-font;
                 font-size: 2.3rem;
                 color: $main-font-color;
-                margin-left: 25px;
+                margin: 25px 35px;
             }
             
             .main-header:hover {
@@ -31,7 +38,8 @@ body {
                 font-size: 1.4rem;
                 font-style: italic;
                 margin-top: 15px;
-                margin-right: 25px;
+                margin: 25px 35px;
+                align-self: center;
             }
 
             .header-item:hover {
