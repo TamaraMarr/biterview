@@ -1,4 +1,4 @@
-@import 'variables';
+@import "variables";
 
 .nav-item {
     list-style-type: none;
@@ -51,6 +51,36 @@ body {
 
     main {
         flex: 1 0 auto;
+
+        .single_candidateInfoDiv {
+            border: solid 1px rgb(255, 206, 60);
+            margin: 25px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .single_candidateInfoDivOneOfThree {
+            padding: 15px 0;
+            margin: 0;
+        }
+
+        .single_candidateInfoDivOneOfThree:first-child {
+            margin-left: 25px;
+        }
+
+        .single_candidateInfoDivOneOfThree:nth-child(2) {
+            margin-left: 35px;
+        }
+
+        .single_candidateInfoTitles {
+            font-family: $header-font;
+            font-size: 1.5rem;
+        }
+
+        .single_candidateInfoContent {
+            font-family: $main-font;
+            font-size: 2rem;
+        } 
     }
 
     footer {
