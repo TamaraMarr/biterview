@@ -101,24 +101,29 @@ var UIController = (function() {
         }
     }
     
+    // date formatter
+    function formatDate(date) {
+        var dateForFormatting = new Date(date);
+        var formattedDate = dateForFormatting.getDate() + "." + dateForFormatting.getMonth() + "." + dateForFormatting.getFullYear() + ".";
+        return formattedDate;
+    }
+
     // render single candidate page
     function displaySingleCandidateInfo(candidateData) {
         $('#root').text("");
         // console.log(candidateData);
         
         // get dob string
-        var DOB = new Date(candidateData.birthday);
-        var DOBString = DOB.getDate() + "." + DOB.getMonth() + "." + DOB.getFullYear() + ".";
+        var DOB = formatDate(candidateData.birthday);
 
         // displaying user main info
         $('#root').append($("<div class='col-12 single_candidateInfoDiv'>")
-            .append(
-            $('<div>')
-              .addClass("col-4 single_candidateInfoDivOneOfThree")
-              .append($("<img style='width: 100%'>")
-              .attr("src", candidateData.avatar ? candidateData.avatar : "http://umsuka.co.za/wp-content/uploads/2015/04/temporary-profile-placeholder-350x350.jpg"))
-            ).append(
-            $('<div>')
+            .append($('<div>')
+                .addClass("col-4 single_candidateInfoDivOneOfThree")
+                .append($("<img style='width: 100%'>")
+                    .attr("src", candidateData.avatar ? candidateData.avatar : "http://umsuka.co.za/wp-content/uploads/2015/04/temporary-profile-placeholder-350x350.jpg"))
+            )
+            .append($('<div>')
                 .addClass('col-4 single_candidateInfoDivOneOfThree')
                 .append($("<h3>")
                     .addClass("single_candidateInfoTitles")
@@ -132,23 +137,24 @@ var UIController = (function() {
                     .text("Email:"))
                 .append($("<p>")
                     .addClass("single_candidateInfoContent")                
-                    .text(candidateData.name))
-            ).append(
-            $('<div>')
+                    .text(candidateData.email))
+            )
+            .append($('<div>')
                 .addClass('col-4 single_candidateInfoDivOneOfThree')
                 .append($("<h3>")
                     .addClass("single_candidateInfoTitles")
                     .text("Date of Birth:"))
                 .append($("<p>")
                     .addClass("single_candidateInfoContent")
-                    .text(DOBString))
+                    .text(DOB))
                 .append($("<h3>")
                     .addClass("single_candidateInfoTitles")
                     .text("Education"))
                 .append($("<p>")
                     .addClass("single_candidateInfoContent")
                     .text(candidateData.education))
-        ));
+            )
+        );
     }
 
     function displayReportsData(reportsData) {
@@ -170,11 +176,42 @@ var UIController = (function() {
         }
         console.log(filteredCandidateData);
 
-        $(".reportsArea").append($("<table id='table'>"));
+        // displaying table headers
+        $(".reportsArea").append($("<table id='table'>")
+                .append($("<tr>")
+                    .append($("<th>")
+                        .text("Company")
+                    )
+                    .append($("<th>")
+                        .text("Interview Date")
+                    )
+                    .append($("<th colspan='2'>")
+                        .text("Status")
+                    )
+                ));
 
-        // displaying table based on the filtered data
-        for(var i = 0; i < filteredCandidateData.length; i++) {
-            $('#table').append($("<>"));
+        // displaying the rest of the table
+        if(filteredCandidateData.length === 0) {
+            $('#table').after($("<p class='error'>")
+                    .text("There is no data available for this user"))
+        } else {
+            for(var i = 0; i < filteredCandidateData.length; i++) {
+                $('#table').append($("<tr>")
+                    .append($("<td>")
+                        .text(filteredCandidateData[i].companyName)
+                    )
+                    .append($("<td>")
+                        .text(formatDate(filteredCandidateData[i].interviewDate))
+                    )
+                    .append($("<td>")
+                        .text(filteredCandidateData[i].status)
+                    )
+                    .append($("<td class='eye'>")
+                        .append($("<img>")
+                            .attr("src", "https://d30y9cdsu7xlg0.cloudfront.net/png/5968-200.png")
+                    ))
+                )
+            }
         }
     }
 
@@ -198,13 +235,11 @@ var mainController = (function(DataCtrl, UICtrl) {
 
     // fetching candidate data and displaying it on single candidate page
     function candidateDataForSinglePageSuccessHandler(candidateData) {
-        // var candidateId = localStorage.getItem("candidate-id");
         UICtrl.displaySingleCandidateInfo(candidateData);
     };
 
     // getting reports data and displaying it on single candidate page
     function reportsDataSuccessHandler(reportsData) {
-        // var candidateId = localStorage.getItem("candidate-id");
         UICtrl.displayReportsData(reportsData);
     };
     
