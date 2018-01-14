@@ -1,60 +1,3 @@
-var BASE_URL = "http://localhost:3333/api/";
-
-var dataController = (function() {
-    // get candidates data
-    function fetchCandidatesData(successHandler, errorHandler, candidateId) {
-        if(!candidateId) {
-            candidateId = "";
-        }
-
-        fetch(BASE_URL + "candidates/" + candidateId)
-            .then(function(candidatesData) {
-                return candidatesData.json();
-            })
-            .then(function(candidatesData) {
-                // console.log("kandidati");
-                // console.log(candidatesData);
-                successHandler(candidatesData);
-            })
-            .catch(function(error) {
-                errorHandler(error); // yet to handle errors!
-            })
-    };
-
-    // get reports data
-    function getReportsData(callback) {
-        var request = $.ajax({
-            url: BASE_URL + "reports",
-            type: "GET",
-            dataType: "json"
-        });
-        
-        request.done(function(reportsData) {
-            callback(reportsData);
-        });
-    }
-
-    // get company data
-    function getCompanyData(callback) {
-        var request = $.ajax({
-            url: BASE_URL + "companies",
-            type: "GET",
-            dataType: "json"
-        });
-        
-        request.done(function(companyData) {
-            // console.log(companyData);
-            callback(companyData);
-        });
-    }
-
-    return {
-        fetchCandidatesData: fetchCandidatesData,
-        getReportsData: getReportsData,
-        getCompanyData: getCompanyData
-    }
-}) ();
-
 var UIController = (function() {
     // render main page
     function displayCandidatesData(candidatesData) {
@@ -104,7 +47,7 @@ var UIController = (function() {
     // date formatter
     function formatDate(date) {
         var dateForFormatting = new Date(date);
-        var formattedDate = dateForFormatting.getDate() + "." + dateForFormatting.getMonth() + "." + dateForFormatting.getFullYear() + ".";
+        var formattedDate = (dateForFormatting.getDate() + 1) + "." + (dateForFormatting.getMonth() + 1) + "." + dateForFormatting.getFullYear() + ".";
         return formattedDate;
     }
 
@@ -174,7 +117,6 @@ var UIController = (function() {
                 filteredCandidateData.push(reportsData[i]);
             }
         }
-        console.log(filteredCandidateData);
 
         // displaying table headers
         $(".reportsArea").append($("<table id='table'>")
@@ -207,7 +149,7 @@ var UIController = (function() {
                         .text(filteredCandidateData[i].status)
                     )
                     .append($("<td class='eye'>")
-                        .append($("<img>")
+                        .append($("<img class='modalOpener'>")
                             .attr("src", "https://d30y9cdsu7xlg0.cloudfront.net/png/5968-200.png")
                     ))
                 )
@@ -215,44 +157,59 @@ var UIController = (function() {
         }
     }
 
+    function openModal(reportsData) {
+        console.log(reportsData);
+
+        $("#root").append($("<div class='outerModalDiv'>")
+            .append($("<div class='innerModalDiv'>")
+                .append($("<div class='innerInnerModalDiv'>")
+                    .append($("<div class='mostInnerModalDiv'>")
+                        .append($("<h2 class='col-12'>")
+                            .text($('#candidate-name').html())
+                        )
+                        .append($("<div class='col-5' style='float: left'>")
+                            .append($("<h3 class='leftH3'>")
+                                .text("Company:")
+                            )
+                            .append($("<p class='leftP'>")
+                                .text(formatDate(reportsData[0].companyName))
+                            )
+                            .append($("<h3 class='leftH3'>")
+                                .text("Interview Date:")
+                            )
+                            .append($("<p class='leftP'>")
+                                .text(formatDate(reportsData[0].interviewDate))
+                            )
+                            .append($("<h3 class='leftH3'>")
+                                .text("Phase:")
+                            )
+                            .append($("<p class='leftP'>")
+                                .text(reportsData[0].phase)
+                            )
+                            .append($("<h3 class='leftH3'>")
+                                .text("Status:")
+                            )
+                            .append($("<p class='leftP'>")
+                                .text(reportsData[0].status)
+                            )
+                        )
+                        .append($("<div class='col-7'> style='float: right'")
+                            .append($("<h3 class='rightH3'>")
+                                .text("Notes:")
+                            )
+                            .append($("<p class='rightP'>")
+                                .text(formatDate(reportsData[0].note))
+                            )
+                        )
+                    )
+                )
+            ))
+    }
+
     return {
         displayCandidatesData: displayCandidatesData,
         displaySingleCandidateInfo: displaySingleCandidateInfo,
-        displayReportsData: displayReportsData
+        displayReportsData: displayReportsData,
+        openModal: openModal
     }
 }) ();
-
-var mainController = (function(DataCtrl, UICtrl) {
-    // fetching candidates data and displaying it on main page
-    function candidatesDataSuccessHandler(candidatesData) {
-        UICtrl.displayCandidatesData(candidatesData);
-    };    
-    function errorHandler(error) {
-        console.log(error); // yet to handle errors!
-    };
-
-    DataCtrl.fetchCandidatesData(candidatesDataSuccessHandler, errorHandler);
-
-    // fetching candidate data and displaying it on single candidate page
-    function candidateDataForSinglePageSuccessHandler(candidateData) {
-        UICtrl.displaySingleCandidateInfo(candidateData);
-    };
-
-    // getting reports data and displaying it on single candidate page
-    function reportsDataSuccessHandler(reportsData) {
-        UICtrl.displayReportsData(reportsData);
-    };
-    
-    // setting up event listeners and displaying single candidate page
-    document.addEventListener("click", function() {
-        if(event.target.getAttribute("data-candidate-id")){
-            var candidateId = event.target.getAttribute("data-candidate-id");
-            
-            DataCtrl.fetchCandidatesData(candidateDataForSinglePageSuccessHandler, errorHandler, candidateId);
-            DataCtrl.getReportsData(reportsDataSuccessHandler);
-        };
-    });
-
-}) (dataController, UIController);
-
-mainController.init();

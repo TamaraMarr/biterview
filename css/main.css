@@ -61,18 +61,56 @@ body {
       font-family: "Ranga", cursive; }
     body main #table {
       width: 100%; }
-    body main #table th {
-      border: solid 1px #FFA000;
-      width: 33%;
-      padding: 7px; }
-    body main #table td {
-      border: solid 1px #FFC107;
-      padding: 7px; }
+      body main #table th {
+        border: solid 1px #FFA000;
+        width: 33%;
+        padding: 7px; }
+      body main #table td {
+        border: solid 1px #FFC107;
+        padding: 7px; }
     body main .eye {
       text-align: center;
       width: 5%; }
       body main .eye img {
         height: 10%; }
+    body main .outerModalDiv {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      background-color: rgba(0, 0, 0, 0.5); }
+    body main .innerModalDiv {
+      display: table;
+      width: 100%;
+      height: 100%; }
+    body main .innerInnerModalDiv {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      z-index: 100; }
+    body main .mostInnerModalDiv {
+      position: relative;
+      width: 60%;
+      height: 50%;
+      margin: 0 auto;
+      padding: 15px;
+      border-radius: 3px;
+      background-color: #ffecb3; }
+      body main .mostInnerModalDiv h2 {
+        border-bottom: solid 1px black;
+        font-family: "Ranga", cursive;
+        font-size: 2rem;
+        text-align: center;
+        margin: 15px 0px; }
+      body main .mostInnerModalDiv h3 {
+        text-align: left;
+        font-size: 1rem;
+        font-style: italic; }
+      body main .mostInnerModalDiv p {
+        text-align: left;
+        font-size: 1.5rem; }
   body footer {
     background-color: #ffce3c;
     width: 100%;
