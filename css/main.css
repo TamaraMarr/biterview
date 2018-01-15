@@ -91,7 +91,7 @@ body {
     body main .mostInnerModalDiv {
       position: relative;
       width: 60%;
-      height: 50%;
+      height: 50vh;
       margin: 0 auto;
       padding: 15px;
       border-radius: 3px;

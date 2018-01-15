@@ -1,4 +1,4 @@
-var dataController = (function() {
+var DataController = (function() {
     var BASE_URL = "http://localhost:3333/api/";
     // get candidates data
     function fetchCandidatesData(successHandler, errorHandler, candidateId) {
@@ -50,15 +50,15 @@ var dataController = (function() {
         var searchString = searchedValue.toLowerCase();
 
         function successHandler(allData) {
-            // filter and return through callback
-            filteredData = allData.filter(function(candidate) {
+            allData.filter(function(candidate) {
                 var name = candidate.name.toLowerCase();
                 if(name.includes(searchString)) {
-                    return candidate;
+                    filteredData.push(candidate);
                 }
             });
+            
+            callback(filteredData);
         }
-        console.log(filteredData)
 
         function errorHandler(error) {
             console.log(error);

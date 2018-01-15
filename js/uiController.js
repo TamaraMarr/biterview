@@ -5,51 +5,61 @@ var UIController = (function() {
         $("#root").append("<input type='text' placeholder='Search candidates by name' class='col-10 searchInputLine'>")
                   .append("<input type='button' value='Search' class='col-2 searchButton'>")
 
-        // displaying the candidates' cards
-        for(var i = 0; i < candidatesData.length; i++) {
-            var candidateCard = document.createElement("div");
-            var divInsideCandidateCard = document.createElement("div");
-            candidateCard.setAttribute("class", "col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4");
-            candidateCard.setAttribute("style", "margin: 15px 0; padding: 0 10px");
-            divInsideCandidateCard.setAttribute("style", "border: solid 1px #FFA000; text-align: center; margin: 0 auto");
+        if(candidatesData.length === 0) {
+            // handling no results
+            var errorNote = document.createElement("p");
+            var name = document.createTextNode("No Results Found");
+            errorNote.appendChild(name);
+            errorNote.setAttribute("class", "col-12 error");
+            document.getElementById("root").appendChild(errorNote);
+        } else {
+            // displaying the candidates' cards
+            for(var i = 0; i < candidatesData.length; i++) {
+                var candidateCard = document.createElement("div");
+                var divInsideCandidateCard = document.createElement("div");
+                candidateCard.setAttribute("class", "col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4");
+                candidateCard.setAttribute("style", "margin: 15px 0; padding: 0 10px");
+                divInsideCandidateCard.setAttribute("style", "border: solid 1px #FFA000; text-align: center; margin: 0 auto");
 
-            // creating and styling avatar
-            var candidateAvatar = document.createElement("img");
-            if(!candidatesData[i].avatar) {
-                candidateAvatar.setAttribute("src", "http://umsuka.co.za/wp-content/uploads/2015/04/temporary-profile-placeholder-350x350.jpg");
-            } else {
-                candidateAvatar.setAttribute("src", candidatesData[i].avatar);
+                // creating and styling avatar
+                var candidateAvatar = document.createElement("img");
+                if(!candidatesData[i].avatar) {
+                    candidateAvatar.setAttribute("src", "http://umsuka.co.za/wp-content/uploads/2015/04/temporary-profile-placeholder-350x350.jpg");
+                } else {
+                    candidateAvatar.setAttribute("src", candidatesData[i].avatar);
+                }
+                candidateAvatar.setAttribute("width", "270px");
+                candidateAvatar.setAttribute("style", "margin-top: 15px; padding: 5px");
+                divInsideCandidateCard.appendChild(candidateAvatar);
+                
+                // creating and styling name; adding id
+                var candidateName = document.createElement("h3");
+                candidateName.setAttribute("style", "font-size: 1.5rem; color: #212121; text-align: center");
+                candidateName.setAttribute("data-candidate-id", candidatesData[i].id);
+                var name = document.createTextNode(candidatesData[i].name);
+                candidateName.appendChild(name);
+                divInsideCandidateCard.appendChild(candidateName);
+                
+                // creating and styling mail
+                var candidateMail = document.createElement("p");
+                candidateMail.setAttribute("style", "text-align: center");
+                var email = document.createTextNode(candidatesData[i].email);
+                candidateMail.appendChild(email);
+                divInsideCandidateCard.appendChild(candidateMail);
+                
+                // finalizing cards
+                candidateCard.appendChild(divInsideCandidateCard);
+
+                // filling out the page
+                document.getElementById("root").appendChild(candidateCard);
             }
-            candidateAvatar.setAttribute("width", "270px");
-            candidateAvatar.setAttribute("style", "margin-top: 15px; padding: 5px");
-            divInsideCandidateCard.appendChild(candidateAvatar);
-            
-            // creating and styling name; adding id
-            var candidateName = document.createElement("h3");
-            candidateName.setAttribute("style", "font-size: 1.5rem; color: #212121; text-align: center");
-            candidateName.setAttribute("data-candidate-id", candidatesData[i].id);
-            var name = document.createTextNode(candidatesData[i].name);
-            candidateName.appendChild(name);
-            divInsideCandidateCard.appendChild(candidateName);
-            
-            // creating and styling mail
-            var candidateMail = document.createElement("p");
-            candidateMail.setAttribute("style", "text-align: center");
-            var email = document.createTextNode(candidatesData[i].email);
-            candidateMail.appendChild(email);
-            divInsideCandidateCard.appendChild(candidateMail);
-            
-            // finalizing cards
-            candidateCard.appendChild(divInsideCandidateCard);
-
-            // filling out the page
-            document.getElementById("root").appendChild(candidateCard);
         }
     }
-
     // filtering results
     function displayFilteredResults(filteredResults) {
-            console.log(filteredResults)
+        $('#root').text("");
+
+        displayCandidatesData(filteredResults);
     }
 
     // displaying upper part of the single candidate page

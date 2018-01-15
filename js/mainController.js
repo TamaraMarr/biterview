@@ -1,4 +1,4 @@
-var mainController = (function(DataCtrl, UICtrl) {
+var MainController = (function(DataCtrl, UICtrl) {
     // fetching candidates data and displaying it on main page
     function candidatesDataSuccessHandler(candidatesData) {
         UICtrl.displayCandidatesData(candidatesData);
@@ -40,26 +40,34 @@ var mainController = (function(DataCtrl, UICtrl) {
     })
 
     // adding event listener for closing report details modal on close button
-    $(document).on("click", ".closeButton", function() {
+    $(document).on("click", ".closeButton", function(event) {
         UICtrl.closeModal(event);
     })
     
     // adding event listener for closing report details modal on ESC key press
-    $(document).keyup(function(e) {
-        if (e.keyCode == 27) {
+    $(document).keyup(function(event) {
+        if (event.keyCode == 27) {
             UICtrl.closeModal(event);
        }
     });
 
     // pass filtered data to UICtrl
     function passFilteredData(filteredData) {
-        UICtrl.displayCandidatesData(filteredData);
+        UICtrl.displayFilteredResults(filteredData);
     }
 
-    // filtering candidates
+    // filtering candidates on button press
     $(document).on("click", ".searchButton", function(event) {
         var searchedValue = $(".searchInputLine").val();
         DataCtrl.getFilteredData(searchedValue, passFilteredData);
+    })
+
+    // filtering candidates on enter key press
+    $(document).on("keypress", ".searchInputLine", function(event) {
+        var searchedValue = $(".searchInputLine").val();
+        if(event.key == "Enter") {
+            DataCtrl.getFilteredData(searchedValue, passFilteredData);
+        }
     })
 
     // initializing the app
@@ -71,6 +79,6 @@ var mainController = (function(DataCtrl, UICtrl) {
         init: init
     };
 
-}) (dataController, UIController);
+}) (DataController, UIController);
 
-mainController.init();
+MainController.init();
