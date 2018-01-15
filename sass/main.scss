@@ -59,6 +59,14 @@ body {
     main {
         flex: 1 0 auto;
 
+        .searchInputLine {
+            margin-top: 10px;
+        }
+
+        .searchButton {
+            margin-top: 10px;
+        }
+
         .single_candidateInfoDiv {
             border: solid 1px $main-color;
             margin: 25px 0;
@@ -68,7 +76,6 @@ body {
         
         .single_candidateInfoDivOneOfThree {
             padding: 15px 0;
-            // margin: 0;
             margin-left: 25px;
         }
 
@@ -77,17 +84,11 @@ body {
         }
 
         .single_candidateInfoTitles {
-            font-family: $header-font;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }
 
         .single_candidateInfoContent {
-            font-family: $main-font;
             font-size: 2rem;
-        }
-
-        .reportsArea h1 {
-            font-family: $header-font;
         }
 
         #table {
@@ -108,10 +109,6 @@ body {
         .eye {
             text-align: center;
             width: 5%;
-
-            img {
-                height: 10%;
-            }
         }
 
         .outerModalDiv {
@@ -147,7 +144,7 @@ body {
             background-color: $light-color;
 
             h2 {
-                border-bottom: solid 1px black;
+                border-bottom: solid 1px #000000;
                 font-family: $header-font;
                 font-size: 2rem;
                 text-align: center;
@@ -163,6 +160,24 @@ body {
             p {
                 text-align: left;
                 font-size: 1.5rem;
+            }
+
+            #rightDiv {
+                float: right;
+            }
+
+            img {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 15px;
+            }
+
+            .closeButton {
+                width: 40px;
+                position: absolute;
+                top: 5px;
+                right: 5px;
             }
         }
     }

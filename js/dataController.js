@@ -1,6 +1,5 @@
-var BASE_URL = "http://localhost:3333/api/";
-
 var dataController = (function() {
+    var BASE_URL = "http://localhost:3333/api/";
     // get candidates data
     function fetchCandidatesData(successHandler, errorHandler, candidateId) {
         if(!candidateId) {
@@ -12,8 +11,6 @@ var dataController = (function() {
                 return candidatesData.json();
             })
             .then(function(candidatesData) {
-                // console.log("kandidati");
-                // console.log(candidatesData);
                 successHandler(candidatesData);
             })
             .catch(function(error) {
@@ -43,14 +40,37 @@ var dataController = (function() {
         });
         
         request.done(function(companyData) {
-            // console.log(companyData);
             callback(companyData);
         });
+    }
+
+    // fetch candidates data and return filtered ones
+    function getFilteredData(searchedValue, callback) {
+        var filteredData = [];
+        var searchString = searchedValue.toLowerCase();
+
+        function successHandler(allData) {
+            // filter and return through callback
+            filteredData = allData.filter(function(candidate) {
+                var name = candidate.name.toLowerCase();
+                if(name.includes(searchString)) {
+                    return candidate;
+                }
+            });
+        }
+        console.log(filteredData)
+
+        function errorHandler(error) {
+            console.log(error);
+        }
+
+        fetchCandidatesData(successHandler, errorHandler);
     }
 
     return {
         fetchCandidatesData: fetchCandidatesData,
         getReportsData: getReportsData,
-        getCompanyData: getCompanyData
+        getCompanyData: getCompanyData,
+        getFilteredData: getFilteredData
     }
 }) ();

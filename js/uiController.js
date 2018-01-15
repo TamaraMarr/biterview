@@ -1,9 +1,12 @@
 var UIController = (function() {
-    // render main page
+    // rendering main page
     function displayCandidatesData(candidatesData) {
-        // console.log(candidatesData);
+        // displaying the search line
+        $("#root").append("<input type='text' placeholder='Search candidates by name' class='col-10 searchInputLine'>")
+                  .append("<input type='button' value='Search' class='col-2 searchButton'>")
+
+        // displaying the candidates' cards
         for(var i = 0; i < candidatesData.length; i++) {
-            // creating and styling card element
             var candidateCard = document.createElement("div");
             var divInsideCandidateCard = document.createElement("div");
             candidateCard.setAttribute("class", "col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4");
@@ -43,21 +46,18 @@ var UIController = (function() {
             document.getElementById("root").appendChild(candidateCard);
         }
     }
-    
-    // date formatter
-    function formatDate(date) {
-        var dateForFormatting = new Date(date);
-        var formattedDate = (dateForFormatting.getDate() + 1) + "." + (dateForFormatting.getMonth() + 1) + "." + dateForFormatting.getFullYear() + ".";
-        return formattedDate;
+
+    // filtering results
+    function displayFilteredResults(filteredResults) {
+            console.log(filteredResults)
     }
 
-    // render single candidate page
+    // displaying upper part of the single candidate page
     function displaySingleCandidateInfo(candidateData) {
         $('#root').text("");
-        // console.log(candidateData);
         
         // get dob string
-        var DOB = formatDate(candidateData.birthday);
+        var DOB = Util.formatDate(candidateData.birthday);
 
         // displaying user main info
         $('#root').append($("<div class='col-12 single_candidateInfoDiv'>")
@@ -99,7 +99,8 @@ var UIController = (function() {
             )
         );
     }
-
+    
+    // displaying lower part of the single candidate page
     function displayReportsData(reportsData) {
         // making header
         $("#root").append($("<div class='reportsArea'>")
@@ -134,7 +135,8 @@ var UIController = (function() {
 
         // displaying the rest of the table
         if(filteredCandidateData.length === 0) {
-            $('#table').after($("<p class='error'>")
+            $('#table')
+                .after($("<p class='error'>")
                     .text("There is no data available for this user"))
         } else {
             for(var i = 0; i < filteredCandidateData.length; i++) {
@@ -143,23 +145,30 @@ var UIController = (function() {
                         .text(filteredCandidateData[i].companyName)
                     )
                     .append($("<td>")
-                        .text(formatDate(filteredCandidateData[i].interviewDate))
+                        .text(Util.formatDate(filteredCandidateData[i].interviewDate))
                     )
                     .append($("<td>")
                         .text(filteredCandidateData[i].status)
                     )
                     .append($("<td class='eye'>")
-                        .append($("<img class='modalOpener'>")
+                        .append($("<img class='modalOpener' id='" + i + "'>")
+                            .css("width", "50%")
                             .attr("src", "https://d30y9cdsu7xlg0.cloudfront.net/png/5968-200.png")
-                    ))
+                        ) 
+                    )
                 )
             }
+            $("#table").after($("<div class='hiddenInfoDiv'>")
+                .text(JSON.stringify(filteredCandidateData))
+                .css("display", "none")  
+            )
         }
     }
 
-    function openModal(reportsData) {
-        console.log(reportsData);
-
+    // opening and displaying modal
+    function openModal(reportsData, eventId) {
+        var dataForDisplaying = reportsData[eventId]
+        
         $("#root").append($("<div class='outerModalDiv'>")
             .append($("<div class='innerModalDiv'>")
                 .append($("<div class='innerInnerModalDiv'>")
@@ -172,44 +181,60 @@ var UIController = (function() {
                                 .text("Company:")
                             )
                             .append($("<p class='leftP'>")
-                                .text(formatDate(reportsData[0].companyName))
+                                .text(dataForDisplaying.companyName)
                             )
                             .append($("<h3 class='leftH3'>")
                                 .text("Interview Date:")
                             )
                             .append($("<p class='leftP'>")
-                                .text(formatDate(reportsData[0].interviewDate))
+                                .text(Util.formatDate(dataForDisplaying.interviewDate))
                             )
                             .append($("<h3 class='leftH3'>")
                                 .text("Phase:")
                             )
                             .append($("<p class='leftP'>")
-                                .text(reportsData[0].phase)
+                                .text(dataForDisplaying.phase)
                             )
                             .append($("<h3 class='leftH3'>")
                                 .text("Status:")
                             )
                             .append($("<p class='leftP'>")
-                                .text(reportsData[0].status)
+                                .text(dataForDisplaying.status)
                             )
                         )
-                        .append($("<div class='col-7'> style='float: right'")
+                        .append($("<div class='col-7' id='rightDiv'>")
                             .append($("<h3 class='rightH3'>")
                                 .text("Notes:")
                             )
-                            .append($("<p class='rightP'>")
-                                .text(formatDate(reportsData[0].note))
+                            .append($("<p>")
+                                .text(dataForDisplaying.note)
                             )
+                        )
+                        .append($("<img src='https://image.flaticon.com/icons/svg/54/54528.svg'>")
+                            .addClass("closeButton")
                         )
                     )
                 )
             ))
     }
 
+    // closing modal
+    function closeModal(event) {
+        // if(event.target.className === "mostInnerModalDiv" || event.target.className === "leftP" ||
+        //     event.target.className === "leftH3" || event.target.className === "rightP" ||
+        //     event.target.className === "rightH3" || event.target.className === "modal") {
+        //     return;
+        // } CLOSING ON CLICK OUTSIDE THE MODAL BODY - IN PROGRESS
+            
+        $('.outerModalDiv').remove();
+    }
+
     return {
         displayCandidatesData: displayCandidatesData,
         displaySingleCandidateInfo: displaySingleCandidateInfo,
         displayReportsData: displayReportsData,
-        openModal: openModal
+        openModal: openModal,
+        closeModal: closeModal,
+        displayFilteredResults: displayFilteredResults
     }
 }) ();

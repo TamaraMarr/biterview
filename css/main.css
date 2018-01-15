@@ -41,6 +41,10 @@ body {
       color: #757575; }
   body main {
     flex: 1 0 auto; }
+    body main .searchInputLine {
+      margin-top: 10px; }
+    body main .searchButton {
+      margin-top: 10px; }
     body main .single_candidateInfoDiv {
       border: solid 1px #ffce3c;
       margin: 25px 0;
@@ -52,13 +56,9 @@ body {
     body main .single_candidateInfoDivOneOfThree > p {
       overflow-wrap: break-word; }
     body main .single_candidateInfoTitles {
-      font-family: "Ranga", cursive;
-      font-size: 1.5rem; }
+      font-size: 1.3rem; }
     body main .single_candidateInfoContent {
-      font-family: "Roboto", sans-serif;
       font-size: 2rem; }
-    body main .reportsArea h1 {
-      font-family: "Ranga", cursive; }
     body main #table {
       width: 100%; }
       body main #table th {
@@ -71,8 +71,6 @@ body {
     body main .eye {
       text-align: center;
       width: 5%; }
-      body main .eye img {
-        height: 10%; }
     body main .outerModalDiv {
       position: fixed;
       top: 0;
@@ -99,7 +97,7 @@ body {
       border-radius: 3px;
       background-color: #ffecb3; }
       body main .mostInnerModalDiv h2 {
-        border-bottom: solid 1px black;
+        border-bottom: solid 1px #000000;
         font-family: "Ranga", cursive;
         font-size: 2rem;
         text-align: center;
@@ -111,6 +109,18 @@ body {
       body main .mostInnerModalDiv p {
         text-align: left;
         font-size: 1.5rem; }
+      body main .mostInnerModalDiv #rightDiv {
+        float: right; }
+      body main .mostInnerModalDiv img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 15px; }
+      body main .mostInnerModalDiv .closeButton {
+        width: 40px;
+        position: absolute;
+        top: 5px;
+        right: 5px; }
   body footer {
     background-color: #ffce3c;
     width: 100%;
