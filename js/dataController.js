@@ -61,7 +61,7 @@ var DataController = (function() {
         }
 
         function errorHandler(error) {
-            console.log(error);
+            console.log(error); // errors yet to be handled
         }
 
         fetchCandidatesData(successHandler, errorHandler);

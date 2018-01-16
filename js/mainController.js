@@ -4,7 +4,7 @@ var MainController = (function(DataCtrl, UICtrl) {
         UICtrl.displayCandidatesData(candidatesData);
     };    
     function errorHandler(error) {
-        console.log(error); // yet to handle errors!
+        console.log(error); // errors yet to be handled
     };
 
     // fetching candidate data and displaying it on single candidate page
