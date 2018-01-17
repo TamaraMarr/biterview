@@ -10,6 +10,7 @@ var MainController = (function(DataCtrl, UICtrl) {
     // fetching candidate data and displaying it on single candidate page
     function candidateDataForSinglePageSuccessHandler(candidateData) {
         UICtrl.displaySingleCandidateInfo(candidateData);
+        DataCtrl.getReportsData(reportsDataSuccessHandler);
     };
 
     // getting reports data and displaying it on single candidate page
@@ -23,7 +24,6 @@ var MainController = (function(DataCtrl, UICtrl) {
             var candidateId = event.target.getAttribute("data-candidate-id");
             
             DataCtrl.fetchCandidatesData(candidateDataForSinglePageSuccessHandler, errorHandler, candidateId);
-            DataCtrl.getReportsData(reportsDataSuccessHandler);
         };
     });
 

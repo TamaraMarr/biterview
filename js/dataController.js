@@ -31,19 +31,6 @@ var DataController = (function() {
         });
     }
 
-    // get company data
-    function getCompanyData(callback) {
-        var request = $.ajax({
-            url: BASE_URL + "companies",
-            type: "GET",
-            dataType: "json"
-        });
-        
-        request.done(function(companyData) {
-            callback(companyData);
-        });
-    }
-
     // fetch candidates data and return filtered ones
     function getFilteredData(searchedValue, callback) {
         var filteredData = [];
@@ -70,7 +57,6 @@ var DataController = (function() {
     return {
         fetchCandidatesData: fetchCandidatesData,
         getReportsData: getReportsData,
-        getCompanyData: getCompanyData,
         getFilteredData: getFilteredData
     }
 }) ();

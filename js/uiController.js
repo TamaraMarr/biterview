@@ -19,7 +19,7 @@ var UIController = (function() {
                 var divInsideCandidateCard = document.createElement("div");
                 candidateCard.setAttribute("class", "col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4");
                 candidateCard.setAttribute("style", "margin: 15px 0; padding: 0 10px");
-                divInsideCandidateCard.setAttribute("style", "border: solid 1px #FFA000; text-align: center; margin: 0 auto");
+                divInsideCandidateCard.setAttribute("style", "border: solid 1px #2196F3; text-align: center; margin: 0 auto");
 
                 // creating and styling avatar
                 var candidateAvatar = document.createElement("img");
@@ -34,7 +34,7 @@ var UIController = (function() {
                 
                 // creating and styling name; adding id
                 var candidateName = document.createElement("h3");
-                candidateName.setAttribute("style", "font-size: 1.5rem; color: #212121; text-align: center");
+                candidateName.setAttribute("style", "font-size: 1.5rem; color: #212121; text-align: center; cursor: pointer");
                 candidateName.setAttribute("data-candidate-id", candidatesData[i].id);
                 var name = document.createTextNode(candidatesData[i].name);
                 candidateName.appendChild(name);
