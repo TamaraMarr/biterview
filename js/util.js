@@ -4,7 +4,7 @@ var Util = (function() {
         var dateForFormatting = new Date(date);
         
         var formattedDate =
-            (dateForFormatting.getDate() + 1) + "." +
+            (dateForFormatting.getDate()) + "." +
             (dateForFormatting.getMonth() + 1) + "." +
             dateForFormatting.getFullYear() + ".";
         

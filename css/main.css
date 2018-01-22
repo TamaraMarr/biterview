@@ -15,7 +15,7 @@ body {
   flex-direction: column; }
   body header .navigation {
     background-color: #2196F3;
-    width: 100%; }
+    width: 100vw; }
     body header .navigation .header-wrapper {
       display: flex;
       flex-direction: row;
@@ -33,7 +33,6 @@ body {
       font-family: "Roboto", sans-serif;
       font-size: 1.4rem;
       font-style: italic;
-      margin-top: 15px;
       margin: 25px 35px;
       align-self: center; }
     body header .navigation .header-item:hover {
@@ -41,26 +40,27 @@ body {
       color: white; }
   body main {
     flex: 1 0 auto; }
-    body main .searchInputLine {
-      margin-top: 10px; }
-    body main .searchButton {
+    body main .searchInputLine, body main .searchButton {
       margin-top: 10px; }
     body main .single_candidateInfoDiv {
       border: solid 1px #7fbff3;
-      margin: 25px 0;
-      display: flex;
-      justify-content: space-between; }
+      width: 95%;
+      margin: 25px auto; }
     body main .single_candidateInfoDivOneOfThree {
       padding: 15px 0;
-      margin-left: 25px; }
-    body main .single_candidateInfoDivOneOfThree > p {
-      overflow-wrap: break-word; }
+      margin: 0; }
+      body main .single_candidateInfoDivOneOfThree h3 {
+        font-style: italic; }
+      body main .single_candidateInfoDivOneOfThree p, body main .single_candidateInfoDivOneOfThree h3 {
+        overflow-wrap: break-word;
+        padding-left: 10px; }
     body main .single_candidateInfoTitles {
       font-size: 1.3rem; }
     body main .single_candidateInfoContent {
       font-size: 2rem; }
     body main #table {
-      width: 100%; }
+      width: 100%;
+      margin-bottom: 25px; }
       body main #table th {
         border: solid 1px #7fbff3;
         width: 33%;
@@ -68,9 +68,12 @@ body {
       body main #table td {
         border: solid 1px #a8d8ff;
         padding: 7px; }
-    body main .eye {
+    body main .eyeTd {
       text-align: center;
-      width: 5%; }
+      width: 10%; }
+      body main .eyeTd .modalOpener {
+        width: 10%;
+        min-width: 35px; }
     body main .outerModalDiv {
       position: fixed;
       top: 0;
@@ -90,12 +93,14 @@ body {
       z-index: 100; }
     body main .mostInnerModalDiv {
       position: relative;
-      width: 60%;
+      width: 90vw;
+      max-width: 500px;
       height: 50vh;
+      overflow: scroll;
       margin: 0 auto;
       padding: 15px;
       border-radius: 3px;
-      background-color: #a8d8ff; }
+      background-color: white; }
       body main .mostInnerModalDiv h2 {
         border-bottom: solid 1px #000000;
         font-family: "Ranga", cursive;
@@ -119,8 +124,8 @@ body {
       body main .mostInnerModalDiv .closeButton {
         width: 40px;
         position: absolute;
-        top: 5px;
-        right: 5px; }
+        top: 10px;
+        right: 10px; }
   body footer {
     background-color: #7fbff3;
     width: 100%;

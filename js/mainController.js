@@ -27,7 +27,7 @@ var MainController = (function(DataCtrl, UICtrl) {
         };
     });
 
-    // getting data for the modalouterModalDiv
+    // getting data for the modal
     function reportsDataForModalSuccessHandler(reportsData) {
         UICtrl.openModal(reportsData, eventArr[eventArr.length - 1])
     }

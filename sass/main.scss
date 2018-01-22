@@ -19,7 +19,7 @@ body {
 	header {
 		.navigation {
 			background-color: #2196F3;//rgb(247, 175, 52);
-			width: 100%;
+			width: 100vw;
 
 			.header-wrapper {
 				display: flex;
@@ -44,7 +44,6 @@ body {
 				font-family: $main-font;
 				font-size: 1.4rem;
 				font-style: italic;
-				margin-top: 15px;
 				margin: 25px 35px;
 				align-self: center;
 			}
@@ -59,28 +58,28 @@ body {
 	main {
 		flex: 1 0 auto;
 
-		.searchInputLine {
-			margin-top: 10px;
-		}
-
-		.searchButton {
+		.searchInputLine, .searchButton {
 			margin-top: 10px;
 		}
 
 		.single_candidateInfoDiv {
 			border: solid 1px $main-color;
-			margin: 25px 0;
-			display: flex;
-			justify-content: space-between;
+			width: 95%;
+			margin: 25px auto;
 		}
 
 		.single_candidateInfoDivOneOfThree {
 			padding: 15px 0;
-			margin-left: 25px;
-		}
+			margin: 0;
+			
+			h3 {
+				font-style: italic;
+			}
 
-		.single_candidateInfoDivOneOfThree > p {
-			overflow-wrap: break-word;
+			p, h3 {
+				overflow-wrap: break-word;
+				padding-left: 10px;
+			}
 		}
 
 		.single_candidateInfoTitles {
@@ -93,6 +92,7 @@ body {
 
 		#table {
 			width: 100%;
+			margin-bottom: 25px;
 
 			th {
 				border: solid 1px $main-color;
@@ -106,9 +106,14 @@ body {
 			}
 		}
 
-		.eye {
+		.eyeTd {
 			text-align: center;
-			width: 5%;
+			width: 10%;
+
+			.modalOpener {
+				width: 10%;
+				min-width: 35px;
+			}
 		}
 
 		.outerModalDiv {
@@ -136,12 +141,14 @@ body {
 
 		.mostInnerModalDiv {
 			position: relative;
-			width: 60%;
+			width: 90vw;
+			max-width: 500px;
 			height: 50vh;
+			overflow: scroll;
 			margin: 0 auto;
 			padding: 15px;
 			border-radius: 3px;
-			background-color: $light-color;
+			background-color: white;
 
 			h2 {
 				border-bottom: solid 1px #000000;
@@ -176,8 +183,8 @@ body {
 			.closeButton {
 				width: 40px;
 				position: absolute;
-				top: 5px;
-				right: 5px;
+				top: 10px;
+				right: 10px;
 			}
 		}
 	}

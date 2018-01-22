@@ -14,7 +14,7 @@ var DataController = (function() {
                 successHandler(candidatesData);
             })
             .catch(function(error) {
-                errorHandler(error); // yet to handle errors!
+                errorHandler(error); // errors yet to be handled
             })
     };
 

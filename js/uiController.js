@@ -2,8 +2,8 @@ var UIController = (function() {
     // rendering main page
     function displayCandidatesData(candidatesData) {
         // displaying the search line
-        $("#root").append("<input type='text' placeholder='Search candidates by name' class='col-10 searchInputLine'>")
-                  .append("<input type='button' value='Search' class='col-2 searchButton'>")
+        $("#root").append("<input type='text' placeholder='Search candidates by name' class='col-9 col-sm-9 col-md-9 col-lg-10 col-xl-10 searchInputLine'>")
+                  .append("<input type='button' value='Search' class='col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 searchButton'>")
 
         if(candidatesData.length === 0) {
             // handling no results
@@ -70,14 +70,12 @@ var UIController = (function() {
         var DOB = Util.formatDate(candidateData.birthday);
 
         // displaying user main info
-        $('#root').append($("<div class='col-12 single_candidateInfoDiv'>")
-            .append($('<div>')
-                .addClass("col-4 single_candidateInfoDivOneOfThree")
-                .append($("<img style='width: 100%'>")
+        $('#root').append($("<div class='row single_candidateInfoDiv'>")
+            .append($('<div class="offset-sm-1 col-sm-10 offset-md-1 col-md-10 col-lg-4 col-xl-4 single_candidateInfoDivOneOfThree">')
+                .append($("<img style='width: 100%' class='col-12'>")
                     .attr("src", candidateData.avatar ? candidateData.avatar : "http://umsuka.co.za/wp-content/uploads/2015/04/temporary-profile-placeholder-350x350.jpg"))
             )
-            .append($('<div>')
-                .addClass('col-4 single_candidateInfoDivOneOfThree')
+            .append($('<div class="offset-sm-1 col-sm-10 offset-md-1 col-md-10 col-lg-4 col-xl-4 single_candidateInfoDivOneOfThree">')
                 .append($("<h3>")
                     .addClass("single_candidateInfoTitles")
                     .text("Name:"))
@@ -92,8 +90,7 @@ var UIController = (function() {
                     .addClass("single_candidateInfoContent")                
                     .text(candidateData.email))
             )
-            .append($('<div>')
-                .addClass('col-4 single_candidateInfoDivOneOfThree')
+            .append($('<div class="offset-sm-1 col-sm-10 offset-md-1 col-md-10 col-lg-4 col-xl-4 single_candidateInfoDivOneOfThree">')
                 .append($("<h3>")
                     .addClass("single_candidateInfoTitles")
                     .text("Date of Birth:"))
@@ -130,7 +127,7 @@ var UIController = (function() {
         }
 
         // displaying table headers
-        $(".reportsArea").append($("<table id='table'>")
+        $(".reportsArea").append($("<table id='table' class='col-12'>")
                 .append($("<tr>")
                     .append($("<th>")
                         .text("Company")
@@ -160,9 +157,8 @@ var UIController = (function() {
                     .append($("<td>")
                         .text(filteredCandidateData[i].status)
                     )
-                    .append($("<td class='eye'>")
-                        .append($("<img class='modalOpener' id='" + i + "'>")
-                            .css("width", "50%")
+                    .append($("<td class='eyeTd'>")
+                        .append($("<img class='modalOpener' id='" + filteredCandidateData[i].id + "'>")
                             .attr("src", "https://d30y9cdsu7xlg0.cloudfront.net/png/5968-200.png")
                         ) 
                     )
@@ -177,7 +173,14 @@ var UIController = (function() {
 
     // opening and displaying modal
     function openModal(reportsData, eventId) {
-        var dataForDisplaying = reportsData[eventId]
+        var candidateNum = parseInt(eventId, 10);
+        var dataForDisplaying = [];
+
+        for(var i = 0; i < reportsData.length; i++) {
+            if (candidateNum === reportsData[i].id) {
+                dataForDisplaying = reportsData[i];
+            }
+        }
         
         $("#root").append($("<div class='outerModalDiv'>")
             .append($("<div class='innerModalDiv'>")
@@ -186,7 +189,7 @@ var UIController = (function() {
                         .append($("<h2 class='col-12'>")
                             .text($('#candidate-name').html())
                         )
-                        .append($("<div class='col-5' style='float: left'>")
+                        .append($("<div class='col-12'>")
                             .append($("<h3 class='leftH3'>")
                                 .text("Company:")
                             )
@@ -211,8 +214,6 @@ var UIController = (function() {
                             .append($("<p class='leftP'>")
                                 .text(dataForDisplaying.status)
                             )
-                        )
-                        .append($("<div class='col-7' id='rightDiv'>")
                             .append($("<h3 class='rightH3'>")
                                 .text("Notes:")
                             )
